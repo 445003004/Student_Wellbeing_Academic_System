@@ -1,0 +1,25 @@
+# --- Web Framework & Server ---
+fastapi>=0.100.0
+uvicorn[standard]>=0.20.0
+
+# --- Database & ORM ---
+sqlalchemy>=2.0.0
+# SQLite is included in Python standard library, no driver install needed
+
+# --- Data Validation & Settings ---
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+email-validator>=2.0.0
+
+# --- Security (Auth & Password Hashing) ---
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+python-multipart>=0.0.6  # Required for OAuth2 form handling
+
+# --- Data Analysis (For Analytics Dashboard) ---
+pandas>=2.0.0
+
+# --- Development & Testing (Required for TDD) ---
+pytest>=7.0.0
+httpx>=0.24.0   # Async client for testing FastAPI
+python-dotenv>=1.0.0
