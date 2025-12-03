@@ -2,18 +2,20 @@ from fastapi import FastAPI
 from app.database import engine, Base
 from app.routers import auth, academic, wellbeing
 from fastapi.middleware.cors import CORSMiddleware
-from config import Settings
+from app.config import get_settings
+
+settings = get_settings()
 
 app = FastAPI(
-    title=Settings.PROJECT_NAME,
+    title=settings.PROJECT_NAME,
     description="Assessment Project for PAI",
-    version=Settings.VERSION
+    version=settings.VERSION
 )
 
 # CORS 配置 (允许 Vue 前端访问)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=Settings.BACKEND_CORS_ORIGINS,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
