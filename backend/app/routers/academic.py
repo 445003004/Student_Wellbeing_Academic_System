@@ -9,8 +9,6 @@ from app.crud import crud_academic
 
 router = APIRouter()
 
-# --- 路由配置 ---
-# 所有接口都需要: 1. 登录 2. 角色必须是 Course Director
 @router.get("/courses", response_model=List[schemas.CourseOut]) # 需要在 schemas.py 定义 CourseOut
 def read_courses(
     db: Session = Depends(get_db),

@@ -101,7 +101,7 @@ class WellbeingSurvey(Base):
     student_id = Column(Integer, ForeignKey("students.id"))
     
     week_number = Column(Integer)
-    stress_level = Column(Integer) # 1-5
+    stress_level = Column(Integer)
     hours_slept = Column(Float)
     recorded_at = Column(DateTime, default=datetime.datetime.utcnow)
     

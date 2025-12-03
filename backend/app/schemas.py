@@ -22,10 +22,12 @@ class CourseBase(BaseModel):
 class CourseOut(CourseBase):
     id: int
     class Config:
-        from_attributes = True # 以前叫 orm_mode = True
+        from_attributes = True
 
 # --- Grade Schemas ---
 class GradeOut(BaseModel):
+    # course_name: str
+    # student_name: str
     id: int
     student_id: int
     assignment_title: str
@@ -43,7 +45,7 @@ class WellbeingSurveyBase(BaseModel):
 
 # 创建时需要的字段 (输入)
 class WellbeingSurveyCreate(WellbeingSurveyBase):
-    student_number: str # 通过学号录入，而不是 ID
+    student_number: str
 
 # 返回给前端的字段 (输出)
 class WellbeingSurveyOut(WellbeingSurveyBase):
@@ -53,7 +55,7 @@ class WellbeingSurveyOut(WellbeingSurveyBase):
     class Config:
         from_attributes = True
 
-# --- Student Schemas (简化版，用于嵌套) ---
+# Student Schemas
 class StudentBasic(BaseModel):
     full_name: str
     student_number: str
@@ -62,21 +64,7 @@ class StudentBasic(BaseModel):
     class Config:
         from_attributes = True
 
-# --- Risk Alert Schema (预警名单专用) ---
+# Risk Alert Schema (预警名单专用)
 class WellbeingRiskOut(WellbeingSurveyOut):
     # 继承自 SurveyOut，并增加 student 信息
     student: StudentBasic
-
-# # 接收数据的 Schema
-# class StudentCreate(BaseModel):
-#     first_name: str
-#     last_name: str
-#     email: str
-
-# # 返回数据的 Schema (包含 ID)
-# class Student(StudentCreate):
-#     id: int
-
-#     class Config:
-#         from_attributes = True # 允许从 ORM 模型读取数据
-#         orm_mode = True

@@ -12,13 +12,13 @@ def get_course_by_id(db: Session, course_id: int):
 
 # 获取课程的统计数据 (Dashboard 数据)
 def get_course_analytics(db: Session, course_id: int):
-    # A. 计算平均分
+    # 计算平均分
     # 查询该课程下所有 Grade 的平均 score
     avg_grade = db.query(func.avg(models.Grade.score))\
                   .filter(models.Grade.course_id == course_id)\
-                  .scalar() # scalar() 获取单一数值结果
+                  .scalar()
 
-    # B. 计算出勤率
+    # 计算出勤率
     # 总记录数
     total_attendance = db.query(models.Attendance)\
                          .filter(models.Attendance.course_id == course_id)\
