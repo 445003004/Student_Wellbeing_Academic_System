@@ -13,3 +13,17 @@ export function getCourseAnalytics(courseId) {
         method: 'get'
     })
 }
+
+export function getAcademicAlerts() {
+    return request({
+        url: '/academic/dashboard/alerts',
+        method: 'get'
+    })
+}
+
+export function getStudentDetails(studentNumber) {
+    return request({
+        url: `/academic/students/${studentNumber}/details`,
+        method: 'get'
+    })
+}

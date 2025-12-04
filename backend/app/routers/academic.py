@@ -53,3 +53,30 @@ def read_grades(
     """
     grades = crud_academic.get_course_grades(db, course_id)
     return grades
+
+# 预警名单接口
+@router.get("/dashboard/alerts", response_model=List[schemas.AcademicRiskOut])
+def read_academic_alerts(
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(require_course_director)
+):
+    """
+    获取学术预警名单：只要有挂科记录的学生都会显示
+    """
+    # 不再需要传递 threshold=50.0，逻辑已在 CRUD 内部写死为检测挂科
+    return crud_academic.get_academic_at_risk_students(db)
+
+# 学生详情查询接口
+@router.get("/students/{student_number}/details", response_model=schemas.StudentAcademicReport)
+def read_student_details(
+    student_number: str,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(require_course_director)
+):
+    """
+    根据学号查询该学生的完整学术档案（所有课程成绩 + 出勤）
+    """
+    report = crud_academic.get_student_academic_details(db, student_number)
+    if not report:
+        raise HTTPException(status_code=404, detail="Student not found")
+    return report

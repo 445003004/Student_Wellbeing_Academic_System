@@ -14,6 +14,15 @@ class TokenData(BaseModel):
     username: Optional[str] = None
     role: Optional[str] = None
 
+# Student Schemas
+class StudentBasic(BaseModel):
+    full_name: str
+    student_number: str
+    email: str
+    
+    class Config:
+        from_attributes = True
+
 # --- Course Schemas ---
 class CourseBase(BaseModel):
     code: str
@@ -37,6 +46,34 @@ class GradeOut(BaseModel):
     class Config:
         from_attributes = True
 
+# 带有课程名称的成绩模型
+class GradeWithCourse(GradeOut):
+    course_name: str
+    course_code: str
+
+# 带有课程名称的出勤模型
+class AttendanceOut(BaseModel):
+    id: int
+    date: datetime
+    status: str
+    course_name: str
+    course_code: str
+    
+    class Config:
+        from_attributes = True
+
+# 学生的完整学术报告
+class StudentAcademicReport(BaseModel):
+    student: StudentBasic
+    grades: List[GradeWithCourse]
+    attendances: List[AttendanceOut]
+
+# --- 新增：用于成绩预警的 Schema ---
+class AcademicRiskOut(BaseModel):
+    student: StudentBasic
+    average_score: float
+    failed_courses_count: int
+
 # 基础字段
 class WellbeingSurveyBase(BaseModel):
     week_number: int
@@ -51,15 +88,6 @@ class WellbeingSurveyCreate(WellbeingSurveyBase):
 class WellbeingSurveyOut(WellbeingSurveyBase):
     id: int
     recorded_at: datetime
-    
-    class Config:
-        from_attributes = True
-
-# Student Schemas
-class StudentBasic(BaseModel):
-    full_name: str
-    student_number: str
-    email: str
     
     class Config:
         from_attributes = True
