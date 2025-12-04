@@ -1,12 +1,6 @@
-//import './plugins/axios'
-// import { createApp } from 'vue'
-// import App from './App.vue'
-//
-// createApp(App).mount('#app')
-
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router' // 引入我们配置好的路由规则
+import router from './router'
 
 // 1. 创建 Vue 应用实例
 const app = createApp(App).use(router)
